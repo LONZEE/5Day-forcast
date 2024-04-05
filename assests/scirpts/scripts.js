@@ -15,7 +15,7 @@ let weather = { // Object to store the weather data
                 console.log(temp);
                 document.querySelector("#weatherContainer").style.display = "flex";
                 document.querySelector("#previousCity").style.display = "flex";
-                document.querySelector("#day"+(i+1)).innerHTML = "Temp in "+ city + " on day "+(i+1)+": "+ Number(temp - 273.15).toFixed(1) + "°C";
+                document.querySelector("#day"+(i+1)).innerHTML = Number(temp - 273.15).toFixed(1) + "°C";
                 document.querySelector("#icon"+(i+1)).innerHTML = "<img src='http://openweathermap.org/img/w/" + icon + ".png' alt='icon'>";
                 document.body.style.backgroundImage = "url('https://source.unsplash.com/1600x900/?" + city + "')";
 
