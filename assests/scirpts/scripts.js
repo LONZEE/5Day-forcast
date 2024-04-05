@@ -13,12 +13,24 @@ let weather = { // Object to store the weather data
                 const temp = data.list[i*8].main.temp; // Get the temperature for every 8th item (every 24 hours)
                 const icon = data.list[i*8].weather[0].icon;
                 console.log(temp);
-                document.querySelector("#weatherContainer").style.display = "block";
+                document.querySelector("#weatherContainer").style.display = "flex";
+                document.querySelector("#previousCity").style.display = "flex";
                 document.querySelector("#day"+(i+1)).innerHTML = "Temp in "+ city + " on day "+(i+1)+": "+ Number(temp - 273.15).toFixed(1) + "°C";
                 document.querySelector("#icon"+(i+1)).innerHTML = "<img src='http://openweathermap.org/img/w/" + icon + ".png' alt='icon'>";
                 document.body.style.backgroundImage = "url('https://source.unsplash.com/1600x900/?" + city + "')";
-            }
-        })
+
+
+                let date = new Date();
+                let dayNumber = date.getDay();
+                let weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                let dayName = weekDays[(dayNumber + i) % 7];
+                let dayElement = document.querySelector("#dateName"+(i+1));
+                    if(dayElement){
+                        dayElement.innerHTML = dayName;
+                    }
+                }   
+            }   
+        )
         .catch(err => alert("City not found"));
     }
 };
