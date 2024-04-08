@@ -12,7 +12,7 @@ let weather = { // Object to store the weather data
                 for (let i = 0; i < 5; i++) {
                     const temp = data.list[i * 8].main.temp; // Get the temperature for every 8th item (every 24 hours)
                     const icon = data.list[i * 8].weather[0].icon;
-                    console.log(temp);
+                    // console.log(temp);
                     document.querySelector("#weatherContainer").style.display = "flex";
                     document.querySelector("#previousCity").style.display = "flex";
                     document.querySelector("#day" + (i + 1)).innerHTML = Number(temp - 273.15).toFixed(1) + "°C";
@@ -20,11 +20,11 @@ let weather = { // Object to store the weather data
                     document.body.style.backgroundImage = "url('https://source.unsplash.com/1600x900/?" + city + "')";
 
 
-                    let date = new Date();
-                    let dayNumber = date.getDay();
-                    let weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-                    let dayName = weekDays[(dayNumber + i) % 7];
-                    let dayElement = document.querySelector("#dateName" + (i + 1));
+                    var date = new Date();
+                    var dayNumber = date.getDay();
+                    var weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                    var dayName = weekDays[(dayNumber + i) % 7];
+                    var dayElement = document.querySelector("#dateName" + (i + 1));
                     if (dayElement) {
                         dayElement.innerHTML = dayName;
                     }
@@ -45,6 +45,7 @@ document.querySelector("#cityInput").addEventListener("keyup", function (event) 
         handleWeatherFetch();
     }
 });
+
 function updateCityList(cities) {
     // Get the city list element
     let cityList = document.querySelector("#cityList");
@@ -58,16 +59,13 @@ function updateCityList(cities) {
         let listItem = document.createElement("li");
         listItem.textContent = city;
         listItem.addEventListener("click", () => {
-            cities.forEach(city => {
-                weather.fetchWeather(city);
-            });
+            // cities.forEach(city => {    // Add an event listener to each city
+                weather.fetchWeather(city); // Fetch the weather data for the city when the city is clicked
+            // });
         });
-        cityList.appendChild(listItem);
+        cityList.appendChild(listItem);     
     });
     localStorage.setItem("cities", JSON.stringify(cities));
 }
-// Load the city list when the page loads
-window.addEventListener("load", () => {
-    let cities = JSON.parse(localStorage.getItem("cities")) || [];
-    updateCityList(cities);
-});
+let cities = JSON.parse(localStorage.getItem("cities")) || [];
+weather.fetchWeather(city);
